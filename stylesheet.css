@@ -1,0 +1,130 @@
+header {
+    font-family: 'Roboto Slab', serif;
+    font-size: 60px;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    align-items: center;
+}
+
+
+.add-book{
+    height: 60px;
+    transition: transform 1s;
+}
+
+.add-book:hover{
+    transform: rotate(90deg);
+}
+
+.add-book:active{
+    transform: scale(0.8);
+}
+
+.library{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.book-card{
+    border: solid 1px black;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 200px;
+    height: 300px;
+    word-wrap: break-word;
+    text-align: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,0.4);
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+form {
+    background-color: white;
+    width: 50%;
+    align-self: center;
+    border-radius: 20px;
+    border: black 1px solid;
+    font-family: 'Roboto Slab', serif;
+}
+
+.form-title{
+    text-align: center;
+    font-size: 30px;
+}
+
+ul{
+    list-style: none;
+}
+
+li{
+    margin: 10px 0px;
+}
+
+label{
+    display: inline-block;
+    text-align: right;
+    width: 25%;
+}
+
+.form-input{
+    width: 50%;
+}
+
+.submit{
+    margin-left:25%;
+}
+
+.error-message{
+    display: none;
+    color: red;
+}
+
+.card-author,
+.card-title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.card-author:hover,
+.card-title:hover{
+    overflow-y: auto;
+}
+
+.card-title{
+    font-size: 26px;
+    height: 50%;
+    font-weight: 500;
+}
+
+.card-author{
+    font-size: 18px;
+    height: 20%;
+    font-weight: 400;
+}
+
+.card-page {
+    font-size: 14px;
+    font-weight: 300;
+}

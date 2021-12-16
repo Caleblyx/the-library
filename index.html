@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+    <title>The Library</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src="script.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"> 
+</head>
+<body>
+    <header>
+        <div>The Library</div>
+        <input type="image" class="add-book" src="images/plus.png">
+    </header>    
+    
+    <div class="modal">
+        
+        <form>
+            <div class="form-title">Add a book</div>
+            <ul>
+                <li>
+                    <label for = "title">Title:</label>
+                    <input type = "text" id = "title" class="form-input" name="title" required>
+                </li>
+                <li>
+                    <label for = "author">Author:</label>
+                    <input type = "text" id = "author" class="form-input" name="author" required`>
+                </li>
+                <li>
+                    <label for = "page">Number of pages:</label>
+                    <input type="number" id="page" class="form-input" name="page" required>
+                </li>
+                <li>
+                    <label for="read">Finished reading?</label>
+                    <input type="checkbox" id="read" name="read">
+                </li>
+                <li>
+                    <input type="submit" class="submit" value="submit">
+                </li>
+                <li class ="error-message">
+                    This book is already in the library.
+                </li>
+            </ul>
+        </form>
+    </div>
+    <div class="library">
+    </div>
+</body>
+</html>
