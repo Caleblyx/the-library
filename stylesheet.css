@@ -1,3 +1,13 @@
+html{
+    height: 100%;
+    padding: 0px;
+}
+
+body{
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+}
 header {
     font-family: 'Roboto Slab', serif;
     font-size: 60px;
@@ -6,7 +16,6 @@ header {
     margin: 10px;
     align-items: center;
 }
-
 
 .add-book{
     height: 60px;
@@ -26,8 +35,9 @@ header {
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    align-items: center;
-    margin-top: 100px;
+    background-color: #54627B;
+    height: 100%;
+    padding-top: 100px;
 }
 
 .book-card{
@@ -43,6 +53,7 @@ header {
     justify-content: space-between;
     border-radius: 10px;
     font-family: 'Roboto', sans-serif;
+    background-color: white;
 }
 
 .modal{
