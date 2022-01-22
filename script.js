@@ -52,15 +52,16 @@ function createBookCard(book) {
     let removeButton = document.createElement("input");
     removeButton.setAttribute("type", "button");
     removeButton.setAttribute("value", "Remove");
-    removeButton.addEventListener("click", e=>removeBook(bookCard));
+    removeButton.addEventListener("click", e=>removeBookandCard(bookCard, book));
     bookCard.appendChild(removeButton);
     return bookCard;
 }
 
-function removeBook(card){
-    let i = card.getAttribute("data");
+function removeBookandCard(card, book){
+    let i = myLibrary.indexOf(book);
     myLibrary.splice(i, 1);
     libraryDiv.removeChild(card)
+    updateLocalStorage()
 }
 
 function displayBooks() {
@@ -83,6 +84,7 @@ function closeModal(e) {
 function toggleRead(book, e) {
     book.read = !book.read;
     e.target.setAttribute("value", `${book["read"]?"Finished":"Not finished yet"}`);
+    updateLocalStorage();
 }
 
 function processFormData(e) {
@@ -99,11 +101,24 @@ function processFormData(e) {
         libraryDiv.appendChild(bookCard);
         modal.style.display = "none";
         form.reset();
+        updateLocalStorage();
     }
 }
 
 function sameBook(b1, b2) {
     return b1.title == b2.title && b1.author == b2.author;
+}
+
+function updateLocalStorage(){
+    localStorage.setItem("theLibrary", JSON.stringify(myLibrary))
+}
+
+function loadLocalStorage(){
+    let localLib = JSON.parse(localStorage.getItem("theLibrary"))
+    myLibrary = localLib
+    if (myLibrary.length == 0) {
+        addBookToLibrary(new Book("Click the '+' icon to add a book to the library!", "This is an example of a book", 1000, true))
+    }
 }
 
 const addBookButton = document.querySelector(".add-book");
@@ -114,12 +129,8 @@ addBookButton.addEventListener("click", showModal);
 form.addEventListener("submit", processFormData);
 window.addEventListener("click", closeModal);
 
-let testBook = new Book("The Ultimate Hitchhiker's Guide to the Galaxy", "Douglas Adams", 815, false);
-let book = new Book("Fight Club", "Chuck Palahniuck", 20);
-
-addBookToLibrary(testBook);
-addBookToLibrary(book);
-
 libraryDiv = document.querySelector('.library');
 
+
+loadLocalStorage();
 displayBooks();
