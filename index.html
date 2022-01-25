@@ -3,7 +3,7 @@
     <title>The Library</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="stylesheet.css">
-    <script src="script.js" defer></script>
+    <script src="dist/bundle.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"> 
@@ -13,7 +13,10 @@
         <div>The Library</div>
         <input type="image" class="add-book" src="images/plus.png">
     </header>    
-    
+    <div class="black-bar">
+        <div class="message">Welcome, stranger! </div>
+        <input type = "button" class="log-button" value = "Click here to Log In">
+    </div>
     <div class="modal">
         
         <form>
@@ -44,6 +47,7 @@
             </ul>
         </form>
     </div>
+    <div class="prompt">Click the '+' icon in the top right corner to start adding books</div>
     <div class="library">
     </div>
 </body>

@@ -139,3 +139,42 @@ label{
     font-size: 14px;
     font-weight: 300;
 }
+
+.black-bar{
+    display: flex;
+    background-color: black;
+    color: white;
+    font-size: 20px;
+    font-family: 'Roboto Slab', serif;
+    justify-content: space-between;
+}
+
+.message{
+    margin: 10px;
+}
+
+.log-button {
+    margin: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    font-size: 20px;
+    font-family: 'Roboto Slab', serif;
+}
+
+.log-button:hover {
+    color: grey;
+}
+
+.log-button:active {
+    color: rgb(73, 73, 73);
+}
+
+.prompt {
+    background-color: #54627B;
+    text-align: center;
+    font-size: 30px;
+    padding-top: 150px;
+    font-family: 'Roboto Slab', serif;
+    color: #ECD5BB;
+}

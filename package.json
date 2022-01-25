@@ -1,0 +1,29 @@
+{
+  "name": "the-library",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Caleblyx/the-library.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Caleblyx/the-library/issues"
+  },
+  "homepage": "https://github.com/Caleblyx/the-library#readme",
+  "dependencies": {
+    "firebase": "^9.6.4",
+    "serve": "^13.0.2"
+  },
+  "devDependencies": {
+    "webpack": "^5.67.0",
+    "webpack-cli": "^4.9.1"
+  }
+}
