@@ -23,7 +23,42 @@
  const firestore = getFirestore(app);
  const auth = getAuth(app);
 
-let myLibrary = [];
+class Library {
+    constructor(){
+        this.books = [];
+    }
+
+    getBookAtIndex(i) {
+        return this.books[i];
+    }
+    addBook(book) {
+        this.books.push(book);
+    }
+
+    removeBook(book) {
+        let index = this.books.indexOf(book);
+        this.books.splice(index, 1);
+    }
+
+    getBooks() {
+        return this.books;
+    }
+
+    setLibrary(books) {
+        this.books = books;
+    }
+
+    length(){
+        return this.books.length;
+    }
+
+    containsBook(book){
+        return this.books.some(libBook => sameBook(book, libBook));
+    }
+
+}
+
+let myLibrary = new Library();
 
 function Book(title, author, pages, read) {
     this.title = title;
@@ -37,13 +72,7 @@ Book.prototype.info = function() {
     return s;
 }
 
-function addBookToLibrary(book) {
-    myLibrary.push(book);
-}
 
-function setLibrary(lib) {
-    myLibrary = lib;
-}
 
 function capitalise(s) {
     return s.slice(0,1).toUpperCase() + s.toLowerCase().slice(1);
@@ -108,8 +137,7 @@ async function removeBookandCard(card, book){
     if (auth.currentUser){
         await deleteBookDoc(book);
     } else {
-    let i = myLibrary.indexOf(book);
-    myLibrary.splice(i, 1);
+    myLibrary.removeBook(book);
     libraryDiv.removeChild(card)
     updateLocalStorage()
     }
@@ -119,8 +147,8 @@ function displayBooks() {
     while(libraryDiv.firstChild) {
         libraryDiv.removeChild(libraryDiv.lastChild);
     }
-    for (let i = 0; i < myLibrary.length; i++) {
-        let bookCard = createBookCard(myLibrary[i]);
+    for (let i = 0; i < myLibrary.length(); i++) {
+        let bookCard = createBookCard(myLibrary.getBookAtIndex(i));
         libraryDiv.appendChild(bookCard);
     }
 }   
@@ -155,7 +183,7 @@ function processFormData(e) {
     e.preventDefault();
     const formData = new FormData(this);
     let book = new Book(formData.get("title"), formData.get("author"), formData.get("page"), formData.get("read")?true:false);
-    let isInLibrary = myLibrary.some(libBook => sameBook(book, libBook));
+    let isInLibrary = myLibrary.containsBook(book);
     if (isInLibrary) {
         errorMessage.style.display = "block";
     } else{
@@ -165,7 +193,7 @@ function processFormData(e) {
         if (auth.currentUser) {
             addBookDoc(book);
         } else{
-            myLibrary.push(book);
+            myLibrary.addBook(book);
             updateLocalStorage();
         }
         modal.style.display = "none";
@@ -178,7 +206,7 @@ function sameBook(b1, b2) {
 }
 
 function updateLocalStorage(){
-    localStorage.setItem("theLibrary", JSON.stringify(myLibrary))
+    localStorage.setItem("theLibrary", JSON.stringify(myLibrary.getBooks()))
 }
 
 function loadLocalStorage(){
@@ -186,7 +214,7 @@ function loadLocalStorage(){
     if (localLib == null) {
         return
     } else {
-        myLibrary = localLib;
+        myLibrary.setLibrary(localLib);
     }
 }
 function login() {
@@ -227,7 +255,7 @@ async function setLiveQuery() {
         where('uid', '==', auth.currentUser.uid),
         orderBy('date added')
     );
-    unsubscribeUser = onSnapshot(userBookQuery, (querySnapshot) => {setLibrary(querySnapshot.docs.map(book =>docToBook(book))); displayBooks();});
+    unsubscribeUser = onSnapshot(userBookQuery, (querySnapshot) => {console.log(myLibrary); myLibrary.setLibrary(querySnapshot.docs.map(book =>docToBook(book))); displayBooks();});
 }
 
 function docToBook(doc) {
