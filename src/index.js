@@ -53,25 +53,30 @@ class Library {
     }
 
     containsBook(book){
-        return this.books.some(libBook => sameBook(book, libBook));
+        let res = this.books.some(libBook => book.equals(libBook));
+        console.log(res);
+        return res;
     }
 
 }
 
+class Book {
+    constructor (title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+
+    getInfo(){
+        return `${this.title} by ${this.author}, ${this.numPages} pages, ${this.read? "read": "not read yet"}`;
+    }
+    equals(otherBook) {
+        return this.title == otherBook.title && this.author == otherBook.author;
+    }
+}
+
 let myLibrary = new Library();
-
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-}
-
-Book.prototype.info = function() {
-    s = `${this.title} by ${this.author}, ${this.numPages} pages, ${this.read? "read": "not read yet"}`;
-    return s;
-}
-
 
 
 function capitalise(s) {
@@ -113,6 +118,11 @@ function createBookCard(book) {
     bookCard.appendChild(removeButton);
     return bookCard;
 }
+
+class uiController {
+    
+}
+
 
 async function getBookDocID(book) {
     const bookQuery = query(
@@ -201,9 +211,6 @@ function processFormData(e) {
     }
 }
 
-function sameBook(b1, b2) {
-    return b1.title == b2.title && b1.author == b2.author;
-}
 
 function updateLocalStorage(){
     localStorage.setItem("theLibrary", JSON.stringify(myLibrary.getBooks()))
