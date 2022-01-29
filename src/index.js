@@ -54,7 +54,6 @@ class Library {
 
     containsBook(book){
         let res = this.books.some(libBook => book.equals(libBook));
-        console.log(res);
         return res;
     }
 
@@ -73,6 +72,10 @@ class Book {
     }
     equals(otherBook) {
         return this.title == otherBook.title && this.author == otherBook.author;
+    }
+
+    toggleRead(){
+        this.read = !this.read;
     }
 }
 
@@ -120,7 +123,14 @@ function createBookCard(book) {
 }
 
 class uiController {
-    
+    constructor() {
+        this.addBookButton = document.querySelector(".add-book");
+        this.modal = document.querySelector(".modal");
+        this.form = document.querySelector("form");
+        this.errorMessage = document.querySelector(".error-message");
+        this.loginButton = document.querySelector(".log-button");
+    }
+
 }
 
 
@@ -183,7 +193,7 @@ function toggleRead(book, e) {
     if (auth.currentUser) {
         toggleBookDocRead(book)
     } else {
-    book.read = !book.read;
+    book.toggleRead();
     e.target.setAttribute("value", `${book["read"]?"Finished":"Not finished yet"}`);
     updateLocalStorage();
     }
@@ -221,6 +231,7 @@ function loadLocalStorage(){
     if (localLib == null) {
         return
     } else {
+        localLib = localLib.map(book => new Book(book.title, book.author, book.pages, book.read));
         myLibrary.setLibrary(localLib);
     }
 }
@@ -262,7 +273,7 @@ async function setLiveQuery() {
         where('uid', '==', auth.currentUser.uid),
         orderBy('date added')
     );
-    unsubscribeUser = onSnapshot(userBookQuery, (querySnapshot) => {console.log(myLibrary); myLibrary.setLibrary(querySnapshot.docs.map(book =>docToBook(book))); displayBooks();});
+    unsubscribeUser = onSnapshot(userBookQuery, (querySnapshot) => {myLibrary.setLibrary(querySnapshot.docs.map(book =>docToBook(book))); displayBooks();});
 }
 
 function docToBook(doc) {
@@ -290,7 +301,6 @@ async function addBookDoc(book) {
 onAuthStateChanged(auth, user => {
     if (user) {
         console.log('logged in!');
-        console.log(user);
         setLiveQuery();
         updateLogButton();
         updateMessage();
